@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TGAA GAMBIT</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=Young+Serif&display=swap">
+<style>
+:root{--page:#efe9dc;--ink:#1c2321;--felt:#0f3b38;--felt2:#0a2a28;--brass:#c9a24b;--ivory:#f7f2e5;--red:#b3262e;--blue:#ff6b6b;--muted:#6b726f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#0b1110;--ink:#ebe5d4;--muted:#93a09b}}
+:root[data-theme="dark"]{--page:#0b1110;--ink:#ebe5d4;--muted:#93a09b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}[hidden]{display:none!important}
+body{margin:0;background:var(--page);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;line-height:1.45}
+main{max-width:760px;margin:0 auto;padding:14px 12px 28px}
+h1{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:clamp(22px,5vw,30px);margin:2px 0}
+.panel,.table{position:relative;background:radial-gradient(ellipse at center,var(--felt) 0%,var(--felt2) 100%);border:6px solid #2b1d12;border-radius:28px;box-shadow:0 0 0 2px var(--brass) inset;padding:16px 12px 56px;color:var(--ivory)}
+.hero{text-align:center;padding:48px 14px 60px}.hero h1{font-size:clamp(32px,8vw,56px);color:var(--ivory);margin:6px 0 8px}
+.suits{font-size:34px;color:var(--brass);letter-spacing:10px}.sub{color:#c9d3cf;max-width:420px;margin:0 auto 22px}
+.opts{display:grid;gap:14px;max-width:420px;margin:0 auto 24px;text-align:left}.opts b{display:block;color:var(--brass);font-size:13px;letter-spacing:.5px;margin-bottom:4px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.inp,#ci{font:inherit;padding:8px 10px;border-radius:10px;border:2px solid var(--brass);background:var(--felt2);color:var(--ivory)}#ci{flex:1;min-width:0}
+.chat{margin-top:12px;background:rgba(0,0,0,.28);border-radius:16px;padding:10px 12px}#cf{height:150px;overflow-y:auto;font-size:14px;padding:2px 4px}#cf div{padding:1px 0;word-break:break-word}.sysm{color:var(--brass);font-weight:600}.sb{display:flex;justify-content:center;align-items:baseline;gap:10px;margin-bottom:4px}.sb b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:30px}.sb .y{color:var(--brass)}.sb .e{color:var(--blue)}.cell.c2{outline:2px solid rgba(201,162,75,.6);outline-offset:2px}
+.clocks{display:flex;justify-content:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}.clk{font-variant-numeric:tabular-nums;border:2px solid var(--brass);border-radius:10px;padding:2px 12px;font-weight:700;font-size:14px}.clk.b{border-color:var(--blue)}.clk.on{background:rgba(255,255,255,.14)}.clk.low{background:var(--red);color:#fff}
+#mm{position:fixed;inset:0;z-index:60;background:rgba(8,14,13,.96);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:var(--ivory);text-align:center;padding:20px}
+.spin{width:46px;height:46px;border:5px solid rgba(201,162,75,.3);border-top-color:var(--brass);border-radius:50%;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.spin{animation-duration:4s}}select{font:inherit;font-weight:600;width:100%;padding:10px 12px;border-radius:10px;border:2px solid var(--brass);background:var(--felt2);color:var(--ivory);min-height:44px}
+.av{width:34px;height:34px;border-radius:50%;object-fit:cover;background:var(--brass);display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;overflow:hidden;flex:0 0 auto}.av.sm{width:22px;height:22px;vertical-align:-6px}.av.lg{width:72px;height:72px}
+.prof{position:absolute;bottom:12px;right:14px;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.3);color:var(--ivory);border:2px solid var(--brass);border-radius:30px;padding:3px 14px 3px 3px;min-height:0}
+.pr0{display:flex;gap:14px;align-items:center;margin-bottom:12px}.big2{font-family:"Young Serif",Georgia,serif;font-size:34px;line-height:1}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}.st>div{background:rgba(0,0,0,.25);border-radius:10px;padding:8px 4px;font-size:13px;color:#c9d3cf}.st b{display:block;font-size:20px;color:var(--ivory)}.st .card b{display:inline;font-size:inherit;color:inherit}
+table{border-collapse:collapse;width:100%}td{padding:3px 6px;border-bottom:1px solid rgba(201,162,75,.3);font-size:14px}
+button{font:inherit;font-weight:600;border:0;border-radius:10px;padding:11px 18px;cursor:pointer;background:var(--brass);color:#1c1c1c;min-height:44px}
+button.alt{background:transparent;color:var(--ivory);border:2px solid var(--brass)}button.alt[aria-pressed=true]{background:var(--brass);color:#1c1c1c}
+button.sm{padding:6px 12px;min-height:36px;font-size:14px}button.big{font-size:20px;padding:14px 44px}button:disabled{opacity:.35;cursor:not-allowed}
+button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.info{position:absolute;top:14px;right:14px;width:40px;height:40px;padding:0;border-radius:50%;background:transparent;color:var(--brass);border:2px solid var(--brass);font-size:22px;font-family:"Young Serif",Georgia,serif}
+.gh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px}.gb{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.score{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.chip{border:2px solid var(--brass);border-radius:20px;padding:2px 14px;font-weight:600;font-size:14px}.chip.b{border-color:var(--blue)}.chip.on{background:rgba(255,255,255,.14)}
+.msg{text-align:center;min-height:48px;padding:4px 6px;font-size:16px}.msg small{display:block;color:#c9d3cf;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(4,var(--w));gap:6px;justify-content:center;margin:6px 0 10px;--w:clamp(54px,16vw,78px)}
+.card{width:var(--w);height:calc(var(--w)*1.4);border-radius:calc(var(--w)*.12);background:var(--ivory);color:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-weight:600;font-size:calc(var(--w)*.4);line-height:1;box-shadow:0 2px 4px rgba(0,0,0,.4);border:0;padding:0;min-height:0;font-family:inherit;position:relative}
+.card.s0{color:#1b8fe0}.card.s1{color:#e0650d}.card.s2{color:var(--red)}.card b{font-weight:700}.card i{font-style:normal;font-size:1.1em}
+.card.o0{background:#fff1c9;box-shadow:0 0 0 3px var(--brass),0 2px 4px rgba(0,0,0,.4)}.card.o1{background:#ffe3e3;box-shadow:0 0 0 3px var(--blue),0 2px 4px rgba(0,0,0,.4)}
+.card.pr::after{content:'◆';position:absolute;top:3px;right:4px;font-size:calc(var(--w)*.2);color:#1a1a1a}
+.card.lm{outline:3px solid #fff;outline-offset:1px}
+button.card{cursor:pointer;transition:transform .12s}button.card:hover{transform:translateY(-4px)}button.card.sel{transform:translateY(-8px);outline:3px solid var(--brass);box-shadow:0 0 14px 5px rgba(201,162,75,.9)}
+.card.hn{animation:glow 1s ease-in-out infinite alternate}
+@keyframes glow{from{box-shadow:0 0 0 3px rgba(255,255,255,.3),0 0 8px 2px rgba(255,255,255,.4)}to{box-shadow:0 0 0 4px rgba(255,255,255,.8),0 0 22px 7px rgba(255,255,255,.9)}}
+@media (prefers-reduced-motion:reduce){.card.hn{animation:none;box-shadow:0 0 0 4px #fff}}
+.cell{width:var(--w);height:calc(var(--w)*1.4);border-radius:calc(var(--w)*.12);background:rgba(0,0,0,.22);border:2px dashed rgba(201,162,75,.4);display:flex;align-items:center;justify-content:center;padding:0;min-height:0;color:var(--brass);font-size:18px;font-weight:700}
+.cell.f{border:0;background:none}button.cell:disabled{opacity:1;cursor:default}.cell.hn{border-color:#fff;background:rgba(255,255,255,.2)}
+.slot{border:2px dashed rgba(201,162,75,.2);border-radius:8px;width:var(--w);height:calc(var(--w)*1.4)}
+.hl{font-size:13px;color:#c9d3cf;text-align:center;margin:4px 0 2px}
+.hand{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;min-height:54px;--w:clamp(34px,9.5vw,50px);padding:6px 0}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px;min-height:40px}
+.mark{position:absolute;left:20px;bottom:12px;color:#041c1a;pointer-events:none;user-select:none}
+.mark b{display:block;font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:26px;line-height:1;letter-spacing:2px}.mark span{display:block;font-size:10px;letter-spacing:.6px;font-weight:600}
+dialog{max-width:min(580px,92vw);max-height:86vh;border:6px solid #2b1d12;border-radius:24px;background:var(--felt2);color:var(--ivory);padding:20px 22px;box-shadow:0 0 0 2px var(--brass) inset}
+dialog::backdrop{background:rgba(0,0,0,.65)}dialog h2{font-family:"Young Serif",Georgia,serif;font-weight:400;margin:0 0 8px}dialog h3{margin:12px 0 4px;font-size:16px;color:var(--brass)}dialog li,dialog p{font-size:15px;margin:3px 0}dialog ul{padding-left:20px;margin:4px 0}
+</style>
+</head>
+<body>
+<main>
+<section id="start" class="panel hero">
+  <button class="info" id="info" aria-label="How to play" title="How to play">?</button>
+  <div class="suits" aria-hidden="true">♠ ♥ ♦ ♣</div>
+  <h1>TGAA GAMBIT</h1>
+  <p class="sub">Draft eight cards, then fight for a 4×4 board. Two minutes to learn, a lifetime to master.</p>
+  <div class="opts">
+    <div id="bw"><b>OPPONENT</b><select id="bot" aria-label="Choose opponent"></select><div class="hl" style="text-align:left;margin-top:4px">Ratings show relative strength between bots, not human chess ratings.</div></div>
+    <div><b>MODE</b><div class="seg" id="sm"><button class="alt sm" data-v="cpu" aria-pressed="true">vs Computer</button><button class="alt sm" data-v="fake">Play Others</button><button class="alt sm" data-v="2p">2 Players</button></div></div>
+    <div><b>TIME CONTROL</b><select id="tc" aria-label="Time control"><option value="0">No clock</option><option value="1">1:00 + 3s per move</option><option value="2" selected>2:00 + 5s per move (default)</option><option value="3">3:00 + 5s per move</option><option value="4">5:00 + 5s per move</option></select></div>
+  </div>
+  <button class="big" id="play">Play</button>
+  <button class="prof" id="pf" aria-label="Open profile" title="Profile"></button>
+  <div class="mark" aria-hidden="true"><b>TGAA</b><span>Tabletop Game Association of America</span></div>
+</section>
+
+<section id="game" hidden>
+  <div class="gh"><h1>TGAA GAMBIT</h1><span class="gb"><button class="alt sm" id="hint">Hint</button><button class="alt sm" id="rl">Rules</button><button class="alt sm" id="ng">New game</button><button class="alt sm" id="mn">Menu</button></span></div>
+  <div class="table">
+    <div class="score" id="score"></div>
+    <div class="sb" id="sb" aria-live="polite"></div>
+    <div class="clocks" id="clocks" hidden><span class="clk b" id="c1"></span><span class="clk" id="c0"></span></div>
+    <div class="hl" id="h1"></div><div class="hand" id="hand1"></div>
+    <div class="msg" id="msg" aria-live="polite"></div>
+    <div class="grid" id="grid"></div>
+    <div class="hl">◆ linked card: protected from capture · gold-ringed squares are worth 2 points</div>
+    <div class="hl" id="h0"></div><div class="hand" id="hand0"></div>
+    <div class="ctl" id="ctl"></div>
+    <div class="chat" id="chat" hidden><div class="hl" style="text-align:left"><b>Chat</b> (simulated opponent)</div><div id="cf" role="log" aria-live="polite"></div><div class="hl" id="ct" style="text-align:left;min-height:18px"></div>
+      <div class="seg" style="margin-bottom:6px"><button class="alt sm q">gl hf</button><button class="alt sm q">nice move</button><button class="alt sm q">gg</button><button class="alt sm q">rematch</button></div>
+      <div style="display:flex;gap:6px"><input id="ci" maxlength="140" placeholder="Say something…" aria-label="Chat message"><button class="sm" id="cs">Send</button></div></div>
+    <div class="mark" aria-hidden="true"><b>TGAA</b><span>Tabletop Game Association of America</span></div>
+  </div>
+</section>
+
+<dialog id="rules" aria-labelledby="rt">
+  <h2 id="rt">Gambit rules</h2>
+  <p>A perfect-information duel: no hidden cards, no luck after the deal. Win by controlling more cards on a 4×4 board.</p>
+  <h3>1. Draft</h3>
+  <p>16 cards are laid face up. Players take turns picking in snake order (1, 2, 2, 2, 2, 2, 2, 2, 1) until each has 8. The first picker gets the best card, but plays second on the board.</p>
+  <h3>2. Place</h3>
+  <p>Take turns placing one card from your hand on any empty square. All 16 squares get filled.</p>
+  <h3>3. Capture</h3>
+  <ul>
+    <li>When you place a card, every touching enemy card (up, down, left, right) that is weaker flips to your side.</li>
+    <li>Strength: 2 lowest up to Ace highest. Ties go by suit: ♠ beats ♥ beats ♦ beats ♣.</li>
+    <li><b>Underdog:</b> a 2 can capture an adjacent Ace of any suit (unless the Ace is linked).</li>
+    <li><b>Link:</b> a card touching a friendly card of the same suit (◆) cannot be captured while that link stands. All captures from one placement resolve simultaneously, using the links that existed when the card was placed.</li>
+    <li>Cards flip only when a card is placed next to them, so being last to move is a big edge.</li>
+  </ul>
+  <h3>4. Win</h3>
+  <p>Each card is worth 1 point and the four gold-ringed center squares are worth 2 (20 points in total). The player who moves first gets a +2 point komi to offset the big last-move advantage. Most points wins; a tie is a draw. Hints are not available in Play Others. You can resign at any time, or offer a draw once the board play begins (the computer accepts only if it isn’t ahead).</p>
+  <h3>Clock</h3>
+  <p>You get 20 seconds per draft pick (the best card is picked for you if time runs out). On the board each player has a chess-style clock that gains time after every move. Run out of time and you lose. Choose the time control on the title screen.</p>
+  <h3>Tips</h3>
+  <p>Selecting a card shows how many cards each square would capture, but the best move is rarely the biggest capture. Save strong cards for the end, build suit links early, and watch which squares your opponent can punish.</p>
+  <div class="ctl"><button id="rc">Got it</button></div>
+</dialog>
+<div id="mm" hidden role="dialog" aria-label="Matchmaking"><div class="spin" aria-hidden="true"></div><h2 id="mmt" style="font-family:'Young Serif',Georgia,serif;font-weight:400;margin:0">Connecting…</h2><div id="mmtm">0:00</div><div class="hl" id="mmo"></div><div class="hl">Play Others uses computer-controlled, simulated opponents. No real players are connected.</div><div id="mmr" style="color:var(--brass);font-weight:600;min-height:24px"></div><button class="alt" id="mmx">Cancel</button></div>
+<dialog id="pd" aria-labelledby="pt">
+  <h2 id="pt">Your profile</h2>
+  <div class="pr0"><div id="pav"></div><div><div class="big2" id="pelo0" hidden></div><label class="hl" style="display:block;text-align:left">Name <input class="inp" id="pname" maxlength="20" style="width:100%"></label><label class="hl" style="display:block;text-align:left;margin:6px 0">Local rating (editable; not an official rating) <input class="inp" id="pelo" type="number" min="100" max="3000" style="width:100%"></label><button class="alt sm" id="pch">Change picture</button><input type="file" id="pfile" accept="image/*" hidden></div></div>
+  <div class="st" id="pst"></div>
+  <h3>Match history</h3><div style="overflow-x:auto" id="phs"></div>
+  <p class="hl" style="text-align:left">Reset progress is permanent: it clears rating, record, stats and history (name and picture stay). Click it twice to confirm.</p>
+  <div class="ctl"><button class="alt" id="prs">Reset progress</button><button id="pc">Close</button></div>
+</dialog>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const RK=['2','3','4','5','6','7','8','9','10','J','Q','K','A'],SU=['♣','♦','♥','♠'];
+const isRed=id=>{const s=id&3;return s===1||s===2};
+const ch=(id,c='')=>`<div class="card s${id&3} ${c}"><b>${RK[id>>2]}</b><i>${SU[id&3]}</i></div>`;
+const NB=[];for(let i=0;i<16;i++){const r=i>>2,c=i&3,a=[];if(r>0)a.push(i-4);if(r<3)a.push(i+4);if(c>0)a.push(i-1);if(c<3)a.push(i+1);NB.push(a)}
+/* ===== engine ===== */
+let KP=-1,KV=2,UD=true,LK=true,USETT=true;
+const CV=[1,1,1,1,1,2,2,1,1,2,2,1,1,1,1,1];
+function prot(st,n){if(!LK)return false;const s=st.S[n],o=st.O[n];for(const m of NB[n])if(st.S[m]>=0&&st.O[m]===o&&(st.S[m]&3)===(s&3))return true;return false}
+function place(st,c,id,p){st.S[c]=id;st.O[c]=p;const f=[],tw=UD&&id<4;for(const n of NB[c]){const s=st.S[n];if(s>=0&&st.O[n]!==p&&(s<id||(tw&&s>>2===12))&&!prot(st,n))f.push(n)}for(const n of f)st.O[n]=p;return f}
+function undo(st,c,p,f){st.S[c]=-1;st.O[c]=0;for(const n of f)st.O[n]=p^1}
+function tally(st,p){let n=0,s=0;for(let i=0;i<16;i++)if(st.S[i]>=0){const w=st.O[i]===p?1:-1;n+=w*CV[i];s+=w*st.S[i]}if(KP>=0)n+=p===KP?KV:-KV;return[n,s]}
+const term=(st,p)=>{const n=tally(st,p)[0];return n>0?1000+n:n<0?-1000+n:0};
+function ev(st,p){const hp=st.H[p],hq=st.H[p^1];let mp=-1,mq=-1,tp=false,tq=false;
+  for(const x of hp){if(x<0)continue;if(x>mp)mp=x;if(x<4)tp=true}for(const x of hq){if(x<0)continue;if(x>mq)mq=x;if(x<4)tq=true}
+  let v=0;for(let i=0;i<16;i++){const s=st.S[i];if(s<0)continue;const me=st.O[i]===p,pr=prot(st,i);let x=10*CV[i]+s/13+(pr?3:0);
+    if(!pr){let open=0;for(const n of NB[i])if(st.S[n]<0)open++;if(open){const b=me?mq:mp,t=me?tq:tp;if(b>s||(t&&s>>2===12))x-=1.5*Math.min(open,2)*CV[i]}}
+    v+=me?x:-x}
+  return v}
+let TT=new Map(),H1=0,H2=0,DL=0,nodes=0,TMUL=1;
+const ZHa=new Int32Array(104),ZHb=new Int32Array(104),SIDE=Math.random()*4294967296|0;for(let i=0;i<104;i++){ZHa[i]=Math.random()*4294967296|0;ZHb[i]=Math.random()*4294967296|0}
+function setP(k,v){if(k==='UD')UD=v;if(k==='LK')LK=v;if(k==='KV')KV=v;if(k==='KP')KP=v;if(k==='TT')USETT=v;if(k==='T')TMUL=v}
+const getH=()=>[H1,H2];
+const Z1=new Int32Array(1664),Z2=new Int32Array(1664);for(let i=0;i<1664;i++){Z1[i]=Math.random()*4294967296|0;Z2[i]=Math.random()*4294967296|0}
+const zi=(c,id,o)=>(c*52+id)*2+o;
+function hashOf(st){H1=0;H2=0;for(let i=0;i<16;i++)if(st.S[i]>=0){const k=zi(i,st.S[i],st.O[i]);H1^=Z1[k];H2^=Z2[k]}for(const q of[0,1])for(const x of st.H[q])if(x>=0){H1^=ZHa[x*2+q];H2^=ZHb[x*2+q]}}
+function play(st,c,id,p){const f=place(st,c,id,p);let k=zi(c,id,p);H1^=Z1[k];H2^=Z2[k];for(const n of f){const s=st.S[n];k=zi(n,s,p^1);H1^=Z1[k];H2^=Z2[k];k=zi(n,s,p);H1^=Z1[k];H2^=Z2[k]}return f}
+function unplay(st,c,id,p,f){let k=zi(c,id,p);H1^=Z1[k];H2^=Z2[k];for(const n of f){const s=st.S[n];k=zi(n,s,p);H1^=Z1[k];H2^=Z2[k];k=zi(n,s,p^1);H1^=Z1[k];H2^=Z2[k]}undo(st,c,p,f)}
+function nm(st,p,d,a,b,left){
+  if(left===0)return term(st,p);if(d===0)return ev(st,p);
+  if((++nodes&1023)===0&&Date.now()>DL)throw 0;
+  const key=(H1>>>0)*4294967296+((H2^(p?SIDE:0))>>>0),e=USETT?TT.get(key):undefined;let bm=-1;
+  if(e){bm=e.m;if(e.d>=d&&(e.f===0||(e.f===1&&e.v>=b)||(e.f===2&&e.v<=a)))return e.v}
+  const h=st.H[p],mv=[];
+  for(let k=0;k<h.length;k++){const id=h[k];if(id<0)continue;for(let c=0;c<16;c++){if(st.S[c]>=0)continue;const f=place(st,c,id,p);let sc=0;for(const n of f)sc+=CV[n];undo(st,c,p,f);mv.push([k*16+c,sc*10+CV[c]-id/60+(k*16+c===bm?1e5:0)])}}
+  mv.sort((x,y)=>y[1]-x[1]);
+  let best=-1e9,bmv=-1,a0=a,first=true;
+  for(const[m]of mv){const k=m>>4,c=m&15,id=h[k],hi=id*2+p;h[k]=-1;H1^=ZHa[hi];H2^=ZHb[hi];const f=play(st,c,id,p);let v;
+    if(first)v=-nm(st,p^1,d-1,-b,-a,left-1);else{v=-nm(st,p^1,d-1,-a-1,-a,left-1);if(v>a&&v<b)v=-nm(st,p^1,d-1,-b,-a,left-1)}
+    unplay(st,c,id,p,f);h[k]=id;H1^=ZHa[hi];H2^=ZHb[hi];first=false;
+    if(v>best){best=v;bmv=m}if(v>a)a=v;if(a>=b)break}
+  if(USETT)TT.set(key,{d,v:best,f:best<=a0?2:best>=b?1:0,m:bmv});return best}
+const cl=st=>({S:st.S.slice(),O:st.O.slice(),H:[st.H[0].slice(),st.H[1].slice()]});
+const emp=st=>st.S.reduce((a,x)=>a+(x<0),0);
+function root(st,p,d,prev,noise){
+  const s=cl(st),left=emp(s),h=s.H[p];hashOf(s);const mv=[];
+  for(let k=0;k<h.length;k++)for(let c=0;c<16;c++)if(s.S[c]<0)mv.push([k,c]);
+  if(prev)mv.sort((x,y)=>((h[y[0]]===prev[0]&&y[1]===prev[1])?1:0)-((h[x[0]]===prev[0]&&x[1]===prev[1])?1:0));
+  let best=-1e9,res=null,a=-1e9;
+  for(const[k,c]of mv){const id=h[k],hi=id*2+p;h[k]=-1;H1^=ZHa[hi];H2^=ZHb[hi];const f=play(s,c,id,p);const v=-nm(s,p^1,d-1,-1e9,-a,left-1)+Math.random()*noise;unplay(s,c,id,p,f);h[k]=id;H1^=ZHa[hi];H2^=ZHb[hi];if(v>best){best=v;res=[id,c];a=best}}
+  return res}
+function evalPos(st,p,d,ms){const s=cl(st);hashOf(s);TT=new Map();DL=Date.now()+ms*TMUL;nodes=0;try{return nm(s,p,d,-1e9,1e9,emp(s))}catch(e){return 0}}
+function cpuMove(st,p,lvl){
+  const mv=[];for(const id of st.H[p])if(id>=0)for(let c=0;c<16;c++)if(st.S[c]<0)mv.push([id,c]);const left=emp(st);
+  if(Math.random()<Math.max(0,(1700-lvl)/1700)*.9)return mv[Math.random()*mv.length|0];
+  if(lvl<800){let b=-1,r=mv[0];const s=cl(st);for(const[id,c]of mv){const f=place(s,c,id,p);let sc=0;for(const n of f)sc+=CV[n];undo(s,c,p,f);const v=sc+Math.random()*1.6;if(v>b){b=v;r=[id,c]}}return r}
+  const maxD=lvl<1500?2:lvl<2000?3:lvl<2400?6:99;let ms=lvl<1500?400:lvl<2000?600:lvl<2400?900:lvl<2800?1600:3200;if(lvl>=2400&&left<=11)ms*=2.5;
+  DL=Date.now()+ms*TMUL;nodes=0;TT=new Map();let res=null;const noise=lvl<1500?.8:lvl<2000?.4:lvl<2400?.15:0;
+  for(let d=1;d<=Math.min(maxD,left);d++){try{res=root(st,p,d,res,noise)}catch(e){break}}
+  return res||mv[0]}
+function hu(h,o){let u=0,hi=0;const c=[0,0,0,0];for(const x of h){u+=x/5.2;c[x&3]++;if(x>=36)hi++}
+  for(const n of c)u+=n*(n-1)*.3;if(h.some(x=>x<4)&&o.some(x=>x>>2===12))u+=3;if(h.some(x=>x>>2===12)&&!o.some(x=>x<4))u+=2;return u}
+function draftAI(mk,mine,lvl,opp){opp=opp||[];let b=-1,bv=-1e9;
+  for(const id of mk){if(id<0)continue;let v;if(lvl<700)v=Math.random()*52;else{v=hu(mine.concat(id),opp)-hu(mine,opp);if(lvl>=1500)v+=.7*(hu(opp.concat(id),mine)-hu(opp,mine));v+=(Math.random()-.5)*(lvl<1500?20:lvl<2200?5:lvl<2800?2:1.2)}
+    if(v>bv){bv=v;b=id}}return b}
+/* ===== game ===== */
+const SEQ=[0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0];
+const BOTS=[['Pebble',100],['Dizzy Dave',150],['Mittens',200],['Gumdrop',250],['Wobbles',320],['Pip',400],['Rusty',480],['Cousin Larry',560],['Penny',640],['Chester',720],['Marigold',800],['Biff',900],['Ada',1000],['Walter',1100],['Juniper',1200],['Dot',1300],['Baron Vex',1400],['Sister Agnes',1500],['Tobias',1600],['Ines',1700],['Quill',1800],['Maestro Ro',1900],['The Clerk',2000],['Odessa',2100],['Hartwell',2200],['Vanya',2300],['Kestrel',2400],['Lord Calloway',2500],['Zenith',2600],['Aurelia',2700],['Magnus Rex',2800],['Oracle',2900],['Grandmaster Null',3000]].map(([n,e])=>({n,e}));
+const P={name:'You',elo:800,peak:800,w:0,l:0,d:0,hist:[],used:{},pic:null};
+try{const s=JSON.parse(localStorage.getItem('gambit_p')||'null');if(s&&typeof s==='object'){Object.assign(P,s);P.elo=Math.min(3000,Math.max(100,+P.elo||800));P.peak=Math.max(+P.peak||0,P.elo);P.name=String(P.name||'You').replace(/[<>&"'`]/g,'').slice(0,20)||'You';if(!Array.isArray(P.hist))P.hist=[];P.hist=P.hist.slice(0,50);if(!P.used||typeof P.used!=='object')P.used={};if(typeof P.pic!=='string'||!P.pic.startsWith('data:image/')||/["'<> ]/.test(P.pic))P.pic=null}}catch(e){}
+const save=()=>{try{localStorage.setItem('gambit_p',JSON.stringify(P))}catch(e){}};
+const TC=[null,[60,3],[120,5],[180,5],[300,5]];
+let G=null,opt={mode:'cpu',bot:BOTS[12],tc:TC[2]},games=0;
+const rt=p=>opt.mode==='cpu'?` (${p?opt.bot.e:P.elo})`:'';
+const avH=c=>P.pic?`<img class="av ${c}" src="${P.pic}" alt="">`:`<span class="av ${c}"><svg viewBox="0 0 24 24" width="70%" height="70%" aria-hidden="true"><circle cx="12" cy="9" r="4.5" fill="#0a2a28"/><path d="M3 22c0-5 4-8 9-8s9 3 9 8z" fill="#0a2a28"/></svg></span>`;
+const isCpu=p=>opt.mode==='cpu'&&p===1;
+const pn=p=>opt.mode==='cpu'?(p?opt.bot.n:P.name):'Player '+(p+1);
+const drafter=()=>SEQ[G.k]?G.fd^1:G.fd;
+function newGame(){
+  const d=[...Array(52).keys()];for(let i=51;i>0;i--){const j=Math.random()*(i+1)|0;[d[i],d[j]]=[d[j],d[i]]}
+  G={S:new Int8Array(16).fill(-1),O:new Int8Array(16),H:[[],[]],mk:d.slice(0,16),k:0,ph:'draft',fd:games++%2,turn:0,sel:-1,hint:null,last:null,busy:false,hints:0,dOff:0,offer:null,cr:false,note:'',out:null,dt:20000,ts:Date.now(),clk:[opt.tc?opt.tc[0]*1000:0,opt.tc?opt.tc[0]*1000:0]};
+  KP=G.fd^1;G.turn=drafter();$('#start').hidden=true;$('#game').hidden=false;chatInit();render();sched()}
+function sched(){if(G.ph!=='over'&&isCpu(G.turn)){G.busy=true;const g=G;setTimeout(()=>{if(G===g)cpuAct()},opt.fake?900+Math.random()*2400:550)}}
+function cpuAct(){
+  if(G.ph==='draft'){doPick(draftAI(G.mk,G.H[1],opt.bot.e,G.H[0]));return}
+  const g=G;setTimeout(()=>{if(G!==g||G.ph==='over')return;think(G,1,opt.bot.e).then(r=>{if(G!==g||G.ph==='over')return;doPlace(r[0],r[1])})},30)}
+function doPick(id){if(G.ph==='over')return;chg();const p=G.turn;G.mk[G.mk.indexOf(id)]=-1;G.H[p].push(id);G.H[p].sort((a,b)=>b-a);G.k++;G.busy=false;G.hint=null;G.note='';G.dt=20000;
+  if(G.k===16){G.ph='play';G.turn=G.fd^1}else G.turn=drafter();render();sched()}
+function doPlace(id,c){if(G.ph==='over')return;chg();if(opt.tc&&G.ph==='play'&&G.clk[G.turn]<=0){endGame(G.turn^1,'time');render();return}const p=G.turn,f=place(G,c,id,p);if(opt.mode==='cpu'&&p===0)P.used[id]=(P.used[id]||0)+1;G.H[p]=G.H[p].filter(x=>x!==id);G.last={c,f};if(opt.tc)G.clk[p]+=opt.tc[1]*1000;G.sel=-1;G.hint=null;G.busy=false;G.note='';G.turn^=1;
+  if(G.S.every(x=>x>=0)){const a=tally(G,0)[0];endGame(a>0?0:a<0?1:-1,'')}render();sched()}
+const mine=()=>!G.busy&&G.ph!=='over'&&!isCpu(G.turn)&&G.offer==null;
+function render(){
+  const n=[0,0];for(let i=0;i<16;i++)if(G.S[i]>=0)n[G.O[i]]+=CV[i];if(KP>=0)n[KP]+=KV;$('#sb').innerHTML=`<span class="y">${(opt.mode==='cpu'?'You':'Player 1')+(KP===0?' (+'+KV+' komi)':'')}</span><b>${n[0]}</b><span>–</span><b>${n[1]}</b><span class="e">${(opt.mode==='cpu'?'Enemy':'Player 2')+(KP===1?' (+'+KV+' komi)':'')}</span>`;
+  $('#score').innerHTML=[0,1].map(p=>`<span class="chip ${p?'b':''} ${G.ph!=='over'&&G.turn===p?'on':''}">${p===0?avH('sm')+' ':opt.mode==='cpu'?botAv(opt.bot,'sm')+' ':''}${pn(p)}${rt(p)}: ${G.ph==='draft'?G.H[p].length+'/8 drafted':n[p]+' pts'}</span>`).join('');
+  const t=G.turn;let m='';
+  if(G.ph==='draft')m=mine()?`${opt.mode==='cpu'?'Your':pn(t)+'’s'} pick<small>Take a card from the market (${16-G.k} left). Strong cards and matching suits both matter.</small>`:`${pn(t)} ${opt.mode==='cpu'?'is':'—'} drafting…`;
+  else if(G.ph==='play')m=mine()?(G.sel>=0?`${pn(t)}: choose a square<small>The number shows how many cards it captures.</small>`:`${pn(t)}: pick a card from your hand<small>Then choose an empty square.</small>`):pn(1)+' is thinking…';
+  else{const w=G.out.w,y=G.out.why;m=`<b style="color:var(--brass)">${w<0?'Draw'+(y?' agreed':' '+n[0]+'–'+n[1]):(opt.mode==='cpu'?(w?pn(1)+' wins':'You win'):'Player '+(w+1)+' wins')+(y==='time'?' ('+pn(w^1)+' ran out of time)':y?' ('+pn(w^1)+' resigned)':' '+n[w]+'–'+n[w^1])}</b>${G.dl!=null?`<small>Your rating: ${P.elo} (${G.dl>=0?'+':''}${G.dl})${G.hints?' · '+G.hints+' hint'+(G.hints>1?'s':''):''}</small>`:''}`}
+  if(G.note&&G.ph!=='over')m+=`<small>${G.note}</small>`;$('#msg').innerHTML=m;
+  let h='';
+  if(G.ph==='draft')for(let i=0;i<16;i++){const id=G.mk[i];h+=id<0?'<div class="slot"></div>':mine()?`<button class="card s${id&3} ${G.hint&&G.hint.id===id?'hn':''}" data-m="${id}" aria-label="${RK[id>>2]}${SU[id&3]}"><b>${RK[id>>2]}</b><i>${SU[id&3]}</i></button>`:ch(id)}
+  else for(let i=0;i<16;i++){const id=G.S[i];
+    if(id>=0)h+=`<div class="cell f ${CV[i]>1?'c2':''}">${ch(id,`o${G.O[i]} ${prot(G,i)?'pr':''} ${G.last&&(G.last.c===i||G.last.f.includes(i))?'lm':''}`)}</div>`;
+    else{const ok=mine()&&G.sel>=0;let b='';if(ok){const f=place(G,i,G.sel,G.turn);if(f.length)b='+'+f.length;undo(G,i,G.turn,f)}
+      h+=`<button class="cell ${CV[i]>1?'c2':''} ${G.hint&&G.hint.c===i?'hn':''}" data-c="${i}" ${ok?'':'disabled'} aria-label="Square ${i+1}">${b}</button>`}}
+  $('#grid').innerHTML=h;
+  for(const p of[0,1]){$('#h'+p).textContent=`${pn(p)}${p&&opt.bot.reg&&opt.mode==='cpu'?' ['+opt.bot.reg+', simulated]':''} · ${G.H[p].length} card${G.H[p].length===1?'':'s'}`;
+    $('#hand'+p).innerHTML=G.H[p].map(id=>G.ph==='play'&&mine()&&t===p?`<button class="card s${id&3} ${G.sel===id?'sel':''}" data-h="${id}"><b>${RK[id>>2]}</b><i>${SU[id&3]}</i></button>`:ch(id)).join('')}
+  $('#hint').hidden=!(opt.mode==='cpu'&&!opt.fake&&mine());
+  $('#ctl').innerHTML=G.ph==='over'?(opt.fake?'<button id="again">Rematch</button><button class="alt" id="fnew">New opponent</button>':'<button id="again">Play again</button>'):G.offer!=null?`<span>${pn(G.offer)} offers a draw.</span><button id="da">Accept</button><button class="alt" id="dd">Decline</button>`:`<button class="alt sm" id="rsg">${G.cr?'Confirm resign?':'Resign'}</button>`+(G.ph==='play'&&G.dOff<2?'<button class="alt sm" id="dr">Offer draw</button>':'')}
+$('#game').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b||!G)return;
+  if(b.id==='cs'){sendChat($('#ci').value);return}if(b.classList.contains('q')){sendChat(b.textContent);return}
+  if(b.id==='fnew')return match();
+  if(b.id==='again')return opt.fake?rematch():newGame();
+  if(b.id==='rsg'){if(G.ph==='over')return;if(!G.cr){G.cr=true;render();setTimeout(()=>{if(G&&G.cr&&G.ph!=='over'){G.cr=false;render()}},3000);return}endGame(opt.mode==='cpu'?1:G.turn^1,'resign');render();return}
+  if(b.id==='dr'){if(G.busy||G.ph!=='play'||G.dOff>=2)return;G.dOff++;if(opt.mode==='2p'){G.offer=G.turn;render();return}G.busy=true;$('#msg').innerHTML='Offering a draw…';const g=G;setTimeout(()=>{if(G!==g||G.ph==='over')return;const ok=drawOK();if(opt.fake)botSay(pick(ok?DY:DN,'d'));if(ok)endGame(-1,'draw');else{G.busy=false;G.note=pn(1)+' declines the draw.'}render()},700);return}
+  if(b.id==='da'){endGame(-1,'draw');render();return}
+  if(b.id==='dd'){G.offer=null;G.note='Draw declined.';render();return}
+  if(!mine())return;
+  if(b.dataset.m)doPick(+b.dataset.m);
+  else if(b.dataset.h){G.sel=G.sel===+b.dataset.h?-1:+b.dataset.h;G.hint=null;render()}
+  else if(b.dataset.c&&G.sel>=0)doPlace(G.sel,+b.dataset.c)});
+$('#hint').onclick=()=>{if(!mine()||opt.fake)return;G.busy=true;$('#msg').innerHTML='Thinking…';
+  setTimeout(()=>{if(G.ph==='draft')G.hint={id:draftAI(G.mk,G.H[G.turn],2900,G.H[G.turn^1])};else{const[id,c]=cpuMove(G,G.turn,2900);G.hint={id,c};G.sel=id}G.hints++;G.busy=false;render()},40)};
+$('#sm').onclick=e=>{const b=e.target.closest('button');if(!b)return;[...$('#sm').children].forEach(x=>x.setAttribute('aria-pressed',x===b));const v=b.dataset.v;opt.fake=v==='fake';opt.mode=v==='2p'?'2p':'cpu';$('#bw').hidden=v!=='cpu'};
+$('#bot').innerHTML=BOTS.map((b,i)=>`<option value="${i}">${b.n} (${b.e})</option>`).join('');$('#bot').value=12;$('#bot').onchange=e=>{opt.bot=BOTS[+e.target.value]};
+const go=()=>{if(opt.fake)match();else{if(opt.mode==='cpu')opt.bot=BOTS[+$('#bot').value];newGame()}};$('#play').onclick=go;$('#ng').onclick=go;
+$('#mn').onclick=()=>{cs++;G=null;$('#chat').hidden=true;$('#game').hidden=true;$('#start').hidden=false;upd()};
+for(const id of['info','rl'])$('#'+id).onclick=()=>$('#rules').showModal();
+$('#rc').onclick=()=>$('#rules').close();
+function endGame(w,why){if(G.ph==='over')return;G.ph='over';G.out={w,why};G.cr=false;G.offer=null;G.busy=false;finish();if(opt.fake)chatEnd(w)}
+function drawOK(){if(opt.bot.e<800&&Math.random()<.5)return true;const left=G.S.reduce((a,x)=>a+(x<0),0);return -evalPos(G,G.turn,Math.min(left,7),900)<=0}
+function finish(){if(opt.mode!=='cpu')return;const n=[0,0];for(let i=0;i<16;i++)if(G.S[i]>=0)n[G.O[i]]+=CV[i];if(KP>=0)n[KP]+=KV;const w0=G.out.w,win=w0===0,draw=w0<0,y=G.out.why;
+  const E=1/(1+Math.pow(10,(opt.bot.e-P.elo)/400));const d=calcD(draw?'D':win?'W':'L',G.hints);P.elo=Math.min(3000,Math.max(100,P.elo+d));P.peak=Math.max(P.peak,P.elo);draw?P.d++:win?P.w++:P.l++;G.dl=d;
+  P.hist.unshift({r:draw?'D':win?'W':'L',n:opt.bot.n,be:opt.bot.e,s:y==='time'?(win?'opp. timed out':'you timed out'):y==='resign'?(win?'opp. resigned':'you resigned'):y==='draw'?'draw agreed':n[0]+'–'+n[1],d,e:P.elo,h:G.hints});save()}
+function upd(){$('#pf').innerHTML=avH('')+`<span>${P.elo}</span>`}
+function profile(){const g=P.w+P.l+P.d,fav=Object.entries(P.used).sort((a,b)=>b[1]-a[1])[0];
+  $('#pav').innerHTML=avH('lg');$('#pelo').value=P.elo;$('#pname').value=P.name;
+  $('#pst').innerHTML=`<div><b>${g}</b>Games played</div><div><b>${P.w}–${P.l}–${P.d}</b>Record (W–L–D)</div><div><b>${g?Math.round(P.w/g*100)+'%':'—'}</b>Win rate</div><div><b>${P.peak}</b>Peak rating</div>`+(fav?`<div style="grid-column:span 2"><div style="--w:30px;display:flex;justify-content:center;margin-bottom:4px">${ch(+fav[0])}</div>Favorite card (played ${fav[1]}×)</div>`:`<div style="grid-column:span 2"><b>—</b>Favorite card</div>`);
+  $('#phs').innerHTML=P.hist.length?'<table>'+P.hist.slice(0,20).map(h=>`<tr><td><b>${h.r}</b></td><td>vs ${h.n} (${h.be})</td><td>${h.s}</td><td>${h.h?h.h+' hint'+(h.h>1?'s':''):'no hints'}</td><td>${h.d>=0?'+':''}${h.d} → ${h.e}</td></tr>`).join('')+'</table>':'<p>No games yet. Finish a game against a bot to start your record.</p>'}
+$('#pf').onclick=()=>{profile();$('#pd').showModal()};$('#pc').onclick=()=>$('#pd').close();$('#pch').onclick=()=>$('#pfile').click();
+$('#pfile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=128;const s=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,128,128);P.pic=c.toDataURL('image/jpeg',.85);save();profile();upd()};im.src=r.result};r.readAsDataURL(f)};
+$('#pname').oninput=e=>{P.name=e.target.value.replace(/[<>&"'`]/g,'').trim()||'You';save()};
+$('#pelo').onchange=e=>{let v=Math.round(+e.target.value);if(!(v>=100))v=100;if(v>3000)v=3000;P.elo=v;P.peak=Math.max(P.peak,v);profile();upd();save()};
+function calcD(r,h){const gap=opt.bot.e-P.elo,bo=Math.max(0,gap-100),E=1/(1+Math.pow(10,gap/400)),x=32*(.5-E);let d=r==='D'?(Math.abs(x)<1e-9?0:Math.sign(x)*Math.max(1,Math.round(Math.abs(x)))+Math.round(.03*bo)):r==='W'?Math.max(2,Math.round(32*(1-E))+Math.round(.06*bo)):-Math.max(3,Math.round(32*E));if(d>0)d=Math.max(1,Math.round(d*Math.pow(.85,h)));return d}
+/* ===== Play Others (simulated opponents) ===== */
+const AD='Shadow,Pixel,Turbo,Silent,Crimson,Lucky,Mystic,Rapid,Frosty,Neon,Cosmic,Iron,Velvet,Rogue,Golden,Atomic,Brave,Sneaky,Electric,Wild,Dusty,Hidden,Royal,Salty,Spicy,Quantum,Lunar,Solar,Stormy,Mighty,Tiny,Grumpy,Happy,Ancient,Clever,Fuzzy,Gentle,Jolly,Midnight,Plain'.split(','),NO='Fox,Rook,Knight,Bishop,Pawn,Queen,King,Wizard,Tiger,Panda,Falcon,Otter,Badger,Raven,Wolf,Cobra,Dragon,Pilot,Ninja,Gambler,Dealer,Joker,Ace,Shark,Moth,Comet,Pirate,Hunter,Monk,Baron,Sphinx,Viper,Yeti,Goblin,Turtle,Lynx,Bandit,Scholar,Captain,Mage'.split(','),HN='Liam,Emma,Noah,Olivia,Mateo,Sofia,Kenji,Yuki,Priya,Arjun,Lars,Ingrid,Chloe,Marcus,Zoe,Ibrahim,Fatima,Dmitri,Anya,Carlos,Lucia,Tomas,Hana,Jin,Aisha,Omar,Nina,Felix,Ruby,Hugo,Mia,Leo,Ava,Kai,Nora,Theo,Sana,Ravi,Elena,Jonas'.split(','),RG=['NA-East','NA-West','EU-West','EU-North','Asia-East','Oceania','S-America','Middle East'];
+const QY=['yes','yep','yeah','definitely','for sure','absolutely','yup','mhm','100%','of course'],QN=['no','nope','nah','not really','definitely not','no way','nah lol','i dont think so','negative'],QM=['maybe','perhaps','could be','possibly','hard to say','maybe, maybe not','50/50','depends','we will see'],QI=['i dont know','no idea','idk','not sure tbh','beats me','ask me later','who knows','i have no clue','dunno'];
+const GR=['hey','hi!','hello','yo','gl hf','good luck!','hey there','hi, gl','sup','hello! have fun'],UN=['this draft is wild','hmm, tricky board','anyone else love this game?','my cat just walked across my keyboard','i always overthink the last move','corners are underrated','i need more coffee','playing on my phone, sorry if slow','ok thinking...','i like your style','been on a losing streak lol','first game of the day','suits matter more than people think','just vibing','low cards are bait, change my mind'],RP=['lol','haha true','interesting','hmm ok','fair enough','same honestly','not bad','you play fast','i was thinking that too','good point','wow','ok ok ok','bold strategy','love it','sure','right?','makes sense','thats wild','funny'];
+const DY=['sure, draw','ok, draw it is','fine by me','sounds fair','gg, draw'],DN=['nah','not yet','i think i can win this','no thanks','nope, keep playing'],GW=['gg','gg wp','good game!','that was close','gg, fun one'],GL=['gg','well played','nice game','wow, you got me','gg, ill get you next time','ouch, gg'],GD=['a draw, fair enough','gg, draw','well, that was even','we are evenly matched'],RA=['sure','lets go','ok rematch','bring it','alright!'],RD=['gtg, sorry','nah, one is enough','maybe later','ive got to run'];
+const LS={},rnd=a=>a[Math.random()*a.length|0],pick=(a,k)=>{let x,i=0;do{x=rnd(a)}while(x===LS[k]&&++i<6);return LS[k]=x};
+function mkName(){const r=Math.random(),n=Math.random()*99|0;if(r<.4)return rnd(AD)+rnd(NO)+n;if(r<.6)return(rnd(AD)+'_'+rnd(NO)).toLowerCase()+(Math.random()<.5?n:'');if(r<.8)return rnd(HN)+(Math.random()<.5?'_'+String.fromCharCode(65+Math.random()*26|0):n);if(r<.9)return'xX'+rnd(NO)+'Xx';return rnd(NO)+n+rnd(AD)}
+const PD={Quiet:{talk:.15,rep:.3,tox:0},Chatty:{talk:1,rep:.9,tox:0},Friendly:{talk:.6,rep:.8,tox:-1},Toxic:{talk:.6,rep:.75,tox:1},Sarcastic:{talk:.4,rep:.6,tox:.5},Neutral:{talk:.3,rep:.5,tox:0}},PL=['Quiet','Quiet','Chatty','Friendly','Friendly','Toxic','Sarcastic','Neutral','Neutral'];
+const ps=()=>opt.bot.p||PD.Neutral,ext=(b,n,t)=>{const x=ps().tox;return x>.4?b.concat(t):x<-.4?b.concat(n):b};
+const FU=['fuck you','fuck off','go fuck yourself','eat shit','fuck you too, buddy','shut the fuck up','get fucked','bite me, asshole','piss off','screw you, dickhead','lol fuck off','kiss my ass','say that again, fuck you','go to hell'];
+const makeOpp=()=>({n:mkName(),e:Math.min(3000,Math.max(100,Math.round(P.elo+(Math.random()+Math.random()-1)*120))),reg:rnd(RG),p:PD[rnd(PL)]});
+let mmT=null,mmF=null,cs=0,rmk=false;
+function match(){const mm=$('#mm'),L=$('#mmt'),T=$('#mmtm'),O=$('#mmo'),opp=makeOpp(),tot=4+Math.random()*7,t0=Date.now(),st=['Connecting to the TGAA server…','Searching for players near '+P.elo+' rating…','Looking through the lobby…','Widening the search range…','Opponent found. Waiting for them to accept…'];let on=700+Math.random()*1800|0;
+  clearInterval(mmT);clearTimeout(mmF);mm.hidden=false;$('#mmx').hidden=false;$('#mmr').textContent='';
+  mmT=setInterval(()=>{const s=(Date.now()-t0)/1000;T.textContent=Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');on+=Math.round((Math.random()-.5)*14);O.textContent=on.toLocaleString()+' simulated players online';
+    if(s<tot)L.textContent=st[Math.floor(s/tot*st.length)];
+    else{clearInterval(mmT);L.textContent='Match found!';$('#mmx').hidden=true;$('#mmr').innerHTML=botAv(opp,'lg')+'<br>'+opp.n+' · '+opp.e+' rating · '+opp.reg;mmF=setTimeout(()=>{mm.hidden=true;opt.bot=opp;newGame()},2000)}},250)}
+$('#mmx').onclick=()=>{clearInterval(mmT);clearTimeout(mmF);$('#mm').hidden=true};
+function say(who,t,cls){const f=$('#cf'),d=document.createElement('div');if(cls)d.className=cls;if(who){const b=document.createElement('b');b.textContent=who+': ';d.appendChild(b)}d.appendChild(document.createTextNode(t));f.appendChild(d);f.scrollTop=f.scrollHeight}
+const botSay=t=>say(opt.bot.n,t);
+function chatInit(){cs++;const id=cs;$('#chat').hidden=!opt.fake;if(!opt.fake)return;if(!rmk)$('#cf').innerHTML='';rmk=false;$('#ct').textContent='';const sg=n=>(n>=0?'+':'')+n;
+  say('',`[SYSTEM]: Win: ${sg(calcD('W',0))}, Draw: ${sg(calcD('D',0))}, Loss: ${sg(calcD('L',0))}`,'sysm');
+  setTimeout(()=>{if(id===cs&&Math.random()<.3+ps().talk*.7)botSay(pick(ext(GR,['hey! glad to play you','hi, have fun!'],['ugh, another one','lets get this over with']),'g'))},1200+Math.random()*2500);
+  (function loop(){setTimeout(()=>{if(id!==cs||!G||G.ph==='over')return;if(Math.random()<.35*ps().talk)botSay(pick(ext(UN,['hope youre having fun','you seem good, good luck','thanks for playing with me'],['this is boring','is that your best?','hurry up lol','you play like my grandma','free elo']),'u'));loop()},(30000+Math.random()*40000)/(.3+ps().talk))})()}
+function sendChat(t){t=t.trim();if(!t||!opt.fake||!G)return;say(P.name,t);$('#ci').value='';botReply(t)}
+function botReply(u){const id=cs,l=u.toLowerCase(),w=l.split(/[^a-z]+/);let p;
+  if((' '+l+' ').includes(' ez '))p=FU;else if(u.includes('?'))p=rnd([QY,QN,QM,QI]);else if(w.includes('gg'))p=GW;else if(w.some(x=>x==='gl'||x==='hf')||l.includes('good luck'))p=['you too!','thanks, gl!','gl hf!','thx, same to you'];else if(l.includes('rematch'))p=['maybe after this one','sure, why not','lets finish this first'];else if(w.some(x=>['hi','hello','hey','yo'].includes(x)))p=GR;else if(l.includes('nice')||w.includes('wp'))p=['thanks!','thx','appreciate it','ty, you too'];else p=ext(RP,['good point!','love that','haha nice'],['whatever','who asked','boring','ok and?','cry about it']);
+  if(p!==FU&&Math.random()>ps().rep)return;$('#ct').textContent=opt.bot.n+' is typing…';
+  setTimeout(()=>{if(id!==cs)return;$('#ct').textContent='';botSay(pick(p,'r'))},1200+Math.random()*2200)}
+function chatEnd(w){const id=cs;setTimeout(()=>{if(id===cs&&Math.random()<.4+ps().talk*.6)botSay(pick(ext(w===1?GW:w===0?GL:GD,['gg wp, great game!','you played really well'],w===1?['ez','get good','too easy']:['lucky','that was luck','whatever']),'e'))},1200+Math.random()*1500)}
+function rematch(){say('','[SYSTEM]: Rematch requested…','sysm');$('#ctl').innerHTML='';const id=cs;setTimeout(()=>{if(id!==cs)return;if(Math.random()<.25){botSay(pick(RD,'rd'));say('','[SYSTEM]: '+opt.bot.n+' declined the rematch.','sysm');$('#ctl').innerHTML='<button id="again">Rematch</button><button class="alt" id="fnew">New opponent</button>'}else{botSay(pick(RA,'ra'));rmk=true;newGame()}},1500+Math.random()*1500)}
+let WK=null,WOK=true;
+function think(st,p,lvl){return new Promise(res=>{if(WOK){try{if(!WK){const src=document.querySelector('script:not([src])').textContent,a=src.indexOf('const NB='),b=src.indexOf('/* ===== game ===== */');WK=new Worker(URL.createObjectURL(new Blob([src.slice(a,b)+';onmessage=e=>{const d=e.data;KP=d.kp;postMessage(cpuMove({S:d.S,O:d.O,H:d.H},d.p,d.lvl))}'],{type:'text/javascript'})))}
+  let done=false;const fb=()=>{if(!done){done=true;WOK=false;try{WK&&WK.terminate()}catch(e){}WK=null;res(cpuMove(st,p,lvl))}},to=setTimeout(fb,9000);
+  WK.onmessage=e=>{if(!done){done=true;clearTimeout(to);res(e.data)}};WK.onerror=()=>{clearTimeout(to);fb()};WK.postMessage({S:st.S,O:st.O,H:st.H,p,lvl,kp:KP});return}catch(e){WOK=false;WK=null}}
+  res(cpuMove(st,p,lvl))})}
+let rsT=null;function rsOff(){clearTimeout(rsT);const b=$('#prs');delete b.dataset.arm;b.textContent='Reset progress';b.style.background='';b.style.color=''}
+$('#prs').onclick=()=>{const b=$('#prs');if(!b.dataset.arm){b.dataset.arm=1;b.textContent='Click again to permanently reset';b.style.background='var(--red)';b.style.color='#fff';rsT=setTimeout(rsOff,4000);return}rsOff();Object.assign(P,{elo:800,peak:800,w:0,l:0,d:0,hist:[],used:{}});save();profile();upd()};
+$('#pd').addEventListener('close',rsOff);
+$('#ci').onkeydown=e=>{if(e.key==='Enter')sendChat(e.target.value)};
+function botAv(o,c){let h=0;for(const x of o.n)h=(h*31+x.charCodeAt(0))>>>0;const hu=h%360,f=`hsl(${(hu+40)%360} 60% 85%)`;return `<span class="av ${c}" style="background:hsl(${hu} 55% 38%)"><svg viewBox="0 0 24 24" width="76%" height="76%" aria-hidden="true"><circle cx="12" cy="9" r="${4+(h>>3)%2}" fill="${f}"/><path d="M3 23c0-5 4-8.5 9-8.5s9 3.5 9 8.5z" fill="${f}"/><text x="22" y="7" font-size="6" text-anchor="end" fill="#fff">${'♠♥♦♣'[h%4]}</text></svg></span>`}
+const fmt=ms=>{const s=Math.max(0,ms)/1000;return s<10?s.toFixed(1)+'s':Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0')};
+function chg(){if(!G||G.ph==='over')return;const n=Date.now(),d=n-G.ts;G.ts=n;if(!opt.tc)return;if(G.ph==='draft')G.dt-=d;else if(G.ph==='play')G.clk[G.turn]-=d}
+setInterval(()=>{if(!G||$('#game').hidden)return;chg();$('#clocks').hidden=!opt.tc;if(!opt.tc)return;
+  if(G.ph==='draft'){if(G.dt<=0&&!isCpu(G.turn)&&G.k<16)doPick(draftAI(G.mk,G.H[G.turn],2900,G.H[G.turn^1]))}
+  else if(G.ph==='play'){if(G.clk[G.turn]<=0){endGame(G.turn^1,'time');render();return}}
+  for(const p of[0,1]){const e=$('#c'+p),on=G.ph!=='over'&&G.turn===p;e.className='clk '+(p?'b ':'')+(on?'on ':'')+(G.ph==='play'&&G.clk[p]<10000?'low':'');e.textContent=pn(p)+' '+(G.ph==='draft'?(on?Math.ceil(Math.max(0,G.dt)/1000)+'s':'—'):fmt(G.clk[p]))}},100);
+$('#tc').onchange=e=>{opt.tc=TC[+e.target.value]};
+upd();
+</script>
+</body>
+</html>
